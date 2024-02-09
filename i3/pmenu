@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+# some stuff to make it pretty
+uptime="`uptime -p | sed -e 's/up //g'`"
+host=`hostnamectl --static`
+shutdown=' Shutdown'
+reboot=' Reboot'
+lock=' Lock'
+suspend=' Suspend'
+logout=' Logout'
+yes=' Yes'
+no=' No'
+
+# this is what actually opens the powermenu popup
+rofi_cmd() {
+	rofi -dmenu \
+		-p "$host" \
+		-mesg "Uptime: $uptime"
+}
+
+# Confirmation CMD
+confirm_cmd() {
+	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 250px;}' \
+		-theme-str 'mainbox {children: [ "message", "listview" ];}' \
+		-theme-str 'listview {columns: 2; lines: 1;}' \
+		-theme-str 'element-text {horizontal-align: 0.5;}' \
+		-theme-str 'textbox {horizontal-align: 0.5;}' \
+		-dmenu \
+		-p 'Confirmation' \
+		-mesg 'Are you Sure?' 
+}
+
+# Ask for confirmation
+confirm_exit() {
+	echo -e "$yes\n$no" | confirm_cmd
+}
+
+# this pass the list of stuff that u can select
+run_rofi() {
+	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+}
+
+# this shuts down or do other stuff based on the selected
+run_cmd() {
+	selected="$(confirm_exit)"
+    if [[ "$selected" == "$yes" ]] then
+
+    if [[ $1 == '--shutdown' ]]; then
+        systemctl poweroff
+    elif [[ $1 == '--reboot' ]]; then
+        systemctl reboot
+    elif [[ $1 == '--suspend' ]]; then
+        mpc -q pause
+        amixer set Master mute
+        systemctl suspend
+    elif [[ $1 == '--logout' ]]; then
+        i3-msg exit
+    fi
+    else
+        exit 0
+    fi
+}
+
+# this is just so it auto executes on bindsym
+chosen="$(run_rofi)"
+case ${chosen} in
+    $shutdown)
+		run_cmd --shutdown
+        ;;
+    $reboot)
+		run_cmd --reboot
+        ;;
+    $lock)
+		if [[ -x '/usr/bin/betterlockscreen' ]]; then
+			betterlockscreen -l
+		elif [[ -x '/usr/bin/i3lock' ]]; then
+			i3lock
+		fi
+        ;;
+    $suspend)
+		run_cmd --suspend
+        ;;
+    $logout)
+		run_cmd --logout
+        ;;
+esac
