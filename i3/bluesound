@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Define the maximum volume level
+MAX_VOLUME=60
+
+# Function to adjust volume if it exceeds the maximum limit
+adjust_volume() {
+    current_sink=$(pactl list sinks short | grep -iE "(RUNNING|IDLE)" | awk '{print $1}')
+    current_volume=$(pactl get-sink-volume $current_sink | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}')
+    
+    if [[ $current_volume -gt $MAX_VOLUME ]]; then
+        pactl set-sink-volume $current_sink $(echo $MAX_VOLUME)"%"
+        echo "Volume adjusted to within limit."
+    fi
+}
+
+# Listen for pulseaudio events
+pactl subscribe | grep --line-buffered "sink" | while read -r line; do
+    adjust_volume
+done
