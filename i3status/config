@@ -41,7 +41,7 @@ memory {
 }
 
 tztime month {
-        format = "%y-%m-%m"
+        format = "%y-%m-%d"
 }
 
 tztime day{

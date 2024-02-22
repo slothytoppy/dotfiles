@@ -9,7 +9,6 @@ vim.opt.termguicolors = true
 
 -- Do not save when switching buffers
 -- o.hidden = true
-
 -- Decrease update time
 o.timeoutlen = 500
 o.updatetime = 200
@@ -21,7 +20,7 @@ o.scrolloff = 8
 o.number = true
 o.numberwidth = 5
 o.relativenumber = true
-o.signcolumn = 'yes:2'
+o.signcolumn = "yes:2"
 -- o.cursorline = true
 
 -- Better editing experience
@@ -40,7 +39,7 @@ o.softtabstop = -1 -- If negative, shiftwidth value is used
 -- o.formatoptions = 'qrn1'
 
 -- Makes neovim and host OS clipboard play nicely with each other
-o.clipboard = 'unnamedplus'
+o.clipboard = "unnamedplus"
 
 -- Case insensitive searching UNLESS /C or capital in search
 o.ignorecase = true
@@ -63,12 +62,12 @@ o.splitright = true
 o.splitbelow = true
 
 -- Preserve view while jumping
-o.jumpoptions = 'view'
+o.jumpoptions = "view"
 -- Stable buffer content on window open/close events.
-o.splitkeep = 'screen'
+o.splitkeep = "screen"
 
 -- Improve diff
-vim.opt.diffopt:append('linematch:60')
+vim.opt.diffopt:append("linematch:60")
 
 -- Smooth scrolling
 o.smoothscroll = true
@@ -84,24 +83,27 @@ o.smoothscroll = true
 -- o.foldminlines = 1
 
 -- Map <leader> to space
-g.mapleader = ' '
-g.maplocalleader = ' '
+g.mapleader = " "
+g.maplocalleader = " "
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
 vim.keymap.set("n", "<c-f>", ":silent !tmux neww session-deez<cr>")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({spec = {
-        { import = "plugins" },
-    },})
-require("lua")
+require("lazy").setup({ spec = {
+	{ import = "plugins" },
+} })
+require("keys")
