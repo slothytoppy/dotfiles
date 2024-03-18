@@ -1,0 +1,25 @@
+pkill -9 final
+max_volume=60
+my_headphone="bluez_output.99_67_2E_C6_BF_24.1"
+headphone_id=$(pactl list sinks short | grep -i $my_headphone | awk '{print $1}')
+#bluez_output.98_67_2E_C6_BF_24.1
+#pactl list sinks short | grep -i bluez_output.98_67_2E_C6_BF_24.1 | awk '{print $1}'
+#pactl get-sink-volume bluez_output.98_67_2E_C6_BF_24.1 | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}'
+
+
+MAX_VOLUME=60
+
+# Function to adjust volume if it exceeds the maximum limit
+adjust_volume() {
+    current_sink=$(pactl list sinks short | grep -iE "(RUNNING|IDLE|SUSPENDED)" | awk '{print $1}')
+    current_volume=$(pactl get-sink-volume $current_sink | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}')
+ if [ -n "$headphone_id" ]; then
+  [[ $(pactl get-sink-volume $headphone_id | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}') -gt max_volume ]] && pactl set-sink-volume $headphone_id $max_volume%
+  else
+    [[ $(pactl get-sink-volume @DEFAULT_SINK@ | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}') -gt max_volume ]] && pactl set-sink-volume @DEFAULT_SINK@ $max_volume%
+fi
+}
+
+pactl subscribe | grep --line-buffered "sink" | while read -r line; do
+    adjust_volume
+done

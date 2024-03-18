@@ -84,29 +84,28 @@ PROMPT_EOL_MARK=''
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-eval `ssh-agent -s` 
-ssh-add
-source $ZSH/oh-my-zsh.sh
-setopt PROMPT_SUBST
+# eval `ssh-agent -s` 
+# ssh-add
+# source $ZSH/oh-my-zsh.sh
+# setopt PROMPT_SUBST
 eval "$(oh-my-posh init zsh)"
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f'
-alias ls="eza -A --icons"
-alias mc="mc --color"
+alias ls="eza -A --icons=always"
 nv() {
    [[ $# == 0 ]] && nvim  . && return
    nvim $@
 }
- cd() {
-    builtin cd "$@"
-    #RET=$?
-    ls -a
-    #return $RETd $@ 
-}
-gmd(){
-git checkout main
-git merge dev
-git push origin main
-}
+# cd() {
+#    builtin cd "$@"
+#    #RET=$?
+#    ls -a
+#    #return $RETd $@ 
+#}
+#gmd(){
+#git checkout main
+#git merge dev
+#git push origin main
+#}
 
 session-deez-widget() {
     zle reset-prompt
@@ -125,7 +124,6 @@ alias gs="git status"
 alias gb="git branch"
 # alias zsh="nv ~/.zshrc"
 alias init="nv ~/.config/nvim/init.lua"
-alias fm="ranger"
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!' 
 # User configuration
@@ -154,5 +152,4 @@ export MANPAGER='nvim +Man!'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # eval "$(starship init zsh)"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"

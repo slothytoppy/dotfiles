@@ -1,0 +1,7 @@
+[env]
+term = "xterm-256color"
+
+[font]
+
+normal={family="JetBrainsMono Nerd Font"}
+bold={family="JetBrainsMono Nerd Font"}
