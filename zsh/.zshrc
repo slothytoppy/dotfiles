@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+setopt autocd 
 autoload -U compinit
 compinit
 alias history="history 1"
