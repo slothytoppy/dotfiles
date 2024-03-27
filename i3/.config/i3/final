@@ -7,9 +7,6 @@ headphone_id=$(pactl list sinks short | grep -i $my_headphone | awk '{print $1}'
 #pactl list sinks short | grep -i bluez_output.98_67_2E_C6_BF_24.1 | awk '{print $1}'
 #pactl get-sink-volume bluez_output.98_67_2E_C6_BF_24.1 | grep -i 'volume' | awk '{gsub(/%/, "", $5); print $5}'
 
-
-MAX_VOLUME=60
-
 # Function to adjust volume if it exceeds the maximum limit
 adjust_volume() {
  if [ -n "$headphone_id" ]; then
