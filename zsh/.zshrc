@@ -17,6 +17,7 @@ setopt EXTENDED_HISTORY
 bindkey -e
 bindkey -v
 export LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export ODIN_ROOT=/home/slothy/build/Odin
 # setopt INC_APPEND_HISTORY
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,

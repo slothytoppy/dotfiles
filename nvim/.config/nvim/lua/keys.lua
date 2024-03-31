@@ -5,6 +5,7 @@ vim.keymap.set("n", "<leader>vrr", "<cmd> lua vim.lsp.buf.references()<cr>")
 vim.keymap.set("n", "<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 vim.keymap.set("n", "<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<cr>")
 vim.keymap.set("n", "<leader>ds", "<cmd>DiagnosticsToggleVirtualText<cr>")
+vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 vim.api.nvim_create_user_command(
   'DiagnosticsToggleVirtualText',
   function()
@@ -43,6 +44,8 @@ vim.keymap.set("n", "<leader>ps", function()
     search = vim.fn.input("Grep String > "),
   })
 end)
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>fk", builtin.keymaps)
 
 vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<CR>")
 vim.keymap.set("n", "-", "<cmd>Neotree position=current<cr>")
@@ -50,6 +53,7 @@ vim.keymap.set("n", "-", "<cmd>Neotree position=current<cr>")
 vim.keymap.set("n", "<S-q>", "<cmd>Neotree toggle<CR>")
 
 vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>")
+vim.keymap.set("n", "<leader>gc", "Git commit")
 
 local harpoon = require("harpoon")
 -- REQUIRED
