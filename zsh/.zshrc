@@ -85,29 +85,25 @@ PROMPT_EOL_MARK=''
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
 # eval `ssh-agent -s` 
 # ssh-add
 # source $ZSH/oh-my-zsh.sh
 # setopt PROMPT_SUBST
+plugins=(git)
 eval "$(oh-my-posh init zsh)"
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f'
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%b '
+alias ga="git add ."
+alias gs="git status"
+alias gb="git branch"
+
 alias ls="eza -A --icons=always"
 nv() {
    [[ $# == 0 ]] && nvim  . && return
    nvim $@
 }
-# cd() {
-#    builtin cd "$@"
-#    #RET=$?
-#    ls -a
-#    #return $RETd $@ 
-#}
-#gmd(){
-#git checkout main
-#git merge dev
-#git push origin main
-#}
 
 session-deez-widget() {
     zle reset-prompt
@@ -117,17 +113,11 @@ session-deez-widget() {
 zle -N session-deez-widget
 bindkey ^f session-deez-widget
 
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b '
-alias programs="cd ~/custom_programs/ctools"
-alias ga="git add ."
-alias gs="git status"
-alias gb="git branch"
 # alias zsh="nv ~/.zshrc"
 alias init="nv ~/.config/nvim/init.lua"
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!' 
+export PATH="/home/slothy/.apps/:$PATH"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

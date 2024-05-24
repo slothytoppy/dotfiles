@@ -1,11 +1,13 @@
 --- LSP
 vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
 vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
-vim.keymap.set("n", "<leader>vrr", "<cmd> lua vim.lsp.buf.references()<cr>")
+vim.keymap.set("n", "gr", "<cmd> lua vim.lsp.buf.references()<cr>")
 vim.keymap.set("n", "<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<cr>")
 vim.keymap.set("n", "<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<cr>")
 vim.keymap.set("n", "<leader>ds", "<cmd>DiagnosticsToggleVirtualText<cr>")
 vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
+vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end)
+
 vim.api.nvim_create_user_command(
   'DiagnosticsToggleVirtualText',
   function()
@@ -48,12 +50,10 @@ local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>fk", builtin.keymaps)
 
 vim.keymap.set("n", "<leader>x", "<cmd>TroubleToggle<CR>")
-vim.keymap.set("n", "-", "<cmd>Neotree position=current<cr>")
 
-vim.keymap.set("n", "<S-q>", "<cmd>Neotree toggle<CR>")
-
+vim.keymap.set("n", "<leader>ga", "<cmd>Git add .<CR>")
+vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>")
 vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>")
-vim.keymap.set("n", "<leader>gc", "Git commit")
 
 local harpoon = require("harpoon")
 -- REQUIRED
