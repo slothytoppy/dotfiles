@@ -7,4 +7,11 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   },
+  keys = {
+    {
+      "<leader>x",
+      "<cmd>Trouble diagnostics toggle<cr>",
+      desc = "toggle diagnostics",
+    },
+  }
 }
