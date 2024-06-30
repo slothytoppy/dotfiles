@@ -15,7 +15,6 @@ SAVEHIST=10000
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 bindkey -e
-bindkey -v
 export LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 export ODIN_ROOT=/home/slothy/build/Odin
 # setopt INC_APPEND_HISTORY
@@ -95,9 +94,6 @@ PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f'
 autoload -Uz vcs_info
 precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
-alias ga="git add ."
-alias gs="git status"
-alias gb="git branch"
 
 alias ls="eza -A --icons=always"
 nv() {

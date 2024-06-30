@@ -51,9 +51,11 @@ vim.keymap.set("n", "<leader>fk", builtin.keymaps)
 
 --vim.keymap.set("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
 
+--[[
 vim.keymap.set("n", "<leader>ga", "<cmd>Git add .<CR>")
 vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>")
 vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>")
+--]]
 
 local harpoon = require("harpoon")
 -- REQUIRED
@@ -116,6 +118,7 @@ harpoon:extend({
     end, { buffer = cx.bufnr })
   end,
 })
+
 local function open_lazygit()
   local buf = vim.api.nvim_create_buf(false, true)
   local height = math.floor(vim.o.lines * 0.7)
