@@ -25,7 +25,7 @@ return {
     mason.setup()
     mason_lspconfig.setup({
       ensure_installed = {
-        "lua_ls",
+        "lua_ls", "ols",
       },
     })
 
@@ -44,5 +44,24 @@ return {
         },
       },
     })
+
+    lspconfig.ols.setup({})
+
+    lspconfig.rust_analyzer.setup {
+      settings = {
+        ['rust-analyzer'] = {
+          check = {
+            command = 'clippy',
+            extraArgs = { '--tests' },
+          },
+          cargo = {
+            allFeatures = true,
+          },
+          rustfmt = {
+            extraArgs = { '+nightly' }, -- Use nightly toolchain for rustfmt
+          },
+        },
+      },
+    }
   end,
 }

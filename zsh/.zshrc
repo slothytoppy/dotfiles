@@ -2,13 +2,17 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-setopt autocd 
+
+
 autoload -U compinit
 compinit
 alias history="history 1"
 export ZSH=$HOME/.oh-my-zsh
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
+export PATH="/home/slothy/.apps/usr/bin:$PATH"
+eval "$(zoxide init zsh)"
+alias cd="z $@"
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -88,7 +92,9 @@ PROMPT_EOL_MARK=''
 # ssh-add
 # source $ZSH/oh-my-zsh.sh
 # setopt PROMPT_SUBST
-plugins=(git)
+plugins=(git zoxide z)
+# set this up using oh-my-posh config export -f yaml --output ~/path/file.yaml 
+#eval "$(oh-my-posh init zsh --config ~/dotfiles/oh-my-posh/theme.yaml)"
 eval "$(oh-my-posh init zsh)"
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f'
 autoload -Uz vcs_info
@@ -96,6 +102,7 @@ precmd() { vcs_info }
 zstyle ':vcs_info:git:*' formats '%b '
 
 alias ls="eza -A --icons=always"
+alias paru="paru --bottomup --skipreview"
 nv() {
    [[ $# == 0 ]] && nvim  . && return
    nvim $@
@@ -113,7 +120,6 @@ bindkey ^f session-deez-widget
 alias init="nv ~/.config/nvim/init.lua"
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!' 
-export PATH="/home/slothy/.apps/:$PATH"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

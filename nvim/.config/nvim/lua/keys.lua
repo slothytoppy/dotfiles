@@ -49,21 +49,13 @@ end)
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>fk", builtin.keymaps)
 
---vim.keymap.set("n", "<leader>x", "<cmd>Trouble diagnostics toggle<CR>")
-
---[[
-vim.keymap.set("n", "<leader>ga", "<cmd>Git add .<CR>")
-vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<CR>")
-vim.keymap.set("n", "<leader>gp", "<cmd>Git push<CR>")
---]]
-
 local harpoon = require("harpoon")
 -- REQUIRED
 harpoon:setup({})
 -- REQUIRED
 
 vim.keymap.set("n", "<leader>a", function()
-  harpoon:list():append()
+  harpoon:list():add()
 end)
 
 vim.keymap.set("n", "<C-g>", function()
