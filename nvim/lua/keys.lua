@@ -58,25 +58,14 @@ vim.keymap.set("n", "<leader>a", function()
   harpoon:list():add()
 end)
 
-vim.keymap.set("n", "<C-g>", function()
-  harpoon:list():select(1)
-end)
-vim.keymap.set("n", "<C-t>", function()
-  harpoon:list():select(2)
-end)
-vim.keymap.set("n", "<C-n>", function()
-  harpoon:list():select(3)
-end)
-vim.keymap.set("n", "<C-s>", function()
-  harpoon:list():select(4)
-end)
-
 -- basic telescope configuration
 local conf = require("telescope.config").values
 local function toggle_telescope(harpoon_files)
   local file_paths = {}
   for _, item in ipairs(harpoon_files.items) do
-    table.insert(file_paths, item.value)
+    if io.open(item.value, "r") then
+      table.insert(file_paths, item.value)
+    end
   end
 
   require("telescope.pickers")
@@ -95,23 +84,7 @@ vim.keymap.set("n", "<C-e>", function()
   toggle_telescope(harpoon:list())
 end, { desc = "Open harpoon window" })
 
-harpoon:extend({
-  UI_CREATE = function(cx)
-    vim.keymap.set("n", "<C-v>", function()
-      harpoon.ui:select_menu_item({ vsplit = true })
-    end, { buffer = cx.bufnr })
-
-    vim.keymap.set("n", "<C-x>", function()
-      harpoon.ui:select_menu_item({ split = true })
-    end, { buffer = cx.bufnr })
-
-    vim.keymap.set("n", "<C-t>", function()
-      harpoon.ui:select_menu_item({ tabedit = true })
-    end, { buffer = cx.bufnr })
-  end,
-})
-
-local function open_lazygit()
+local function open_gitui()
   local buf = vim.api.nvim_create_buf(false, true)
   local height = math.floor(vim.o.lines * 0.7)
   local width = math.floor(vim.o.columns * 0.9)
@@ -127,12 +100,12 @@ local function open_lazygit()
     style = 'minimal',
   })
 
-  vim.fn.termopen('lazygit', {
+  vim.fn.termopen('gitui', {
     on_exit = function() vim.api.nvim_win_close(win, true) end,
   })
 
   vim.cmd.startinsert()
 end
 
-vim.api.nvim_create_user_command('LazygitStart', open_lazygit, {})
-vim.keymap.set('n', '<leader>gs', function() vim.cmd 'LazygitStart' end)
+vim.api.nvim_create_user_command('GituiStart', open_gitui, {})
+vim.keymap.set('n', '<leader>gs', function() vim.cmd 'GituiStart' end)
