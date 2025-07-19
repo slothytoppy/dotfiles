@@ -2,9 +2,10 @@ local g = vim.g
 local o = vim.o
 
 -- cmd('syntax on')
--- vim.api.nvim_command('filetype plugin indent on')
+vim.api.nvim_command('filetype plugin indent on')
 
 vim.opt.termguicolors = true
+
 -- o.background = 'dark'
 
 -- Do not save when switching buffers
@@ -110,38 +111,6 @@ require("lazy").setup({
 })
 require("keys")
 require("lazygit")
-
---[[require("ccls").setup({
-  lsp = {
-    -- Check `:help vim.lsp.start` for config options.
-    server = {
-      name = "ccls",             -- String name.
-
-      cmd = { "ccls-extra.sh" }, -- Point to your binary, has to be a table.
-      args = {},
-
-      -- autostart = false,  -- Does not seem to work here.
-
-      offset_encoding = "utf-32", -- Default value set by plugin.
-
-      root_dir = vim.fs.dirname(vim.fs.find({ "compile_commands.json", ".git" }, { upward = true })[1]),
-
-      init_options = {
-        index = {
-          threads = 0,
-        },
-
-        clang = {
-          excludeArgs = { "-frounding-math" },
-        },
-      },
-
-      -- |> Fix diagnostics.
-      -- |> Attach LSP keybindings & other crap.
-    },
-  },
-  filetypes = { "c", "cpp" },
-})]] --
 
 vim.cmd 'packadd termdebug'
 
