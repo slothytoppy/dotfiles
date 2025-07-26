@@ -15,12 +15,6 @@ return {
       cyan = "#689d6a",
       orange = "#d65d0e",
     }
-    local copilot_colours = {
-      [""] = { fg = colours.grey, bg = colours.bg },
-      ["Normal"] = { fg = colours.grey, bg = colours.bg },
-      ["Warning"] = { fg = colours.red, bg = colours.bg },
-      ["InProgress"] = { fg = colours.yellow, bg = colours.bg },
-    }
 
     lualine.setup {
       options = {
@@ -81,24 +75,6 @@ return {
             cond = require("lazy.status").has_updates,
             color = { fg = colours.green },
           },
-          {
-            function()
-              local icon = " "
-              local status = require("copilot.api").status.data
-              return icon .. (status.message or "")
-            end,
-            cond = function()
-              local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
-              return ok and #clients > 0
-            end,
-            color = function()
-              if not package.loaded["copilot"] then
-                return
-              end
-              local status = require("copilot.api").status.data
-              return copilot_colours[status.status] or copilot_colours[""]
-            end,
-          },
           { "diff" },
         },
         lualine_y = {
@@ -106,9 +82,6 @@ return {
           { "location", color = { fg = colours.cyan, bg = colours.bg } },
         },
         lualine_z = {
-          function()
-            return "  " .. os.date("%X")
-          end,
         },
       }
     }

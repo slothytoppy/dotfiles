@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>ds", "<cmd>DiagnosticsToggleVirtualText<cr>")
 vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end)
 
+vim.keymap.set('n', '<leader>d', "<cmd>Telescope diagnostics<CR>")
+
 vim.api.nvim_create_user_command(
   'DiagnosticsToggleVirtualText',
   function()

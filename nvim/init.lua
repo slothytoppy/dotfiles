@@ -90,8 +90,6 @@ g.maplocalleader = " "
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
-vim.keymap.set("n", "<c-f>", ":silent !tmux neww session-deez<cr>")
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
