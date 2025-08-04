@@ -6,7 +6,9 @@ return {
       ensure_installed = {
         "lua",
         "c",
-        "markdown"
+        "markdown",
+        "rust",
+        "nu",
       },
       sync_install = false,
       highlight = {

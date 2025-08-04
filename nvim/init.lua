@@ -107,8 +107,6 @@ require("lazy").setup({
     { import = "plugins" },
   }
 })
-require("keys")
-require("lazygit")
 
 vim.cmd 'packadd termdebug'
 
